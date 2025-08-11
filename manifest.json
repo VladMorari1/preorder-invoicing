@@ -1,0 +1,25 @@
+{
+  "vendor": "whola",
+  "name": "whola-preorders-mail-service",
+  "version": "0.0.1",
+  "title": "Whola Mail Service",
+  "description": "App which will send email (invoices) notifications about preorder payments",
+  "builders": {
+    "node": "6.x"
+  },
+  "dependencies": {},
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": { "host": "{{account}}.vtexcommercestable.com.br", "path": "/api/*" }
+    }
+
+  ],
+  "settingsSchema": {
+    "title": "Whola preorder-invoicing",
+    "type": "object",
+    "properties": {}
+  },
+  "credentialType": "absolute",
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}
