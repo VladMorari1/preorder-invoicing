@@ -10,12 +10,13 @@ export const orderEmailTemplate = `
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#f8fafc;margin:0;padding:24px 0;">
     <tr><td align="center">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="680" style="width:680px;max-width:680px;background:#fff;border-collapse:collapse;">
+        <!-- preheader hidden -->
         <tr>
           <td style="font-size:0;line-height:0;opacity:0;height:0;overflow:hidden;display:none;">
             Order {{orderNumber}} – {{status}}
           </td>
         </tr>
-
+        <!-- title -->
         <tr>
           <td style="padding:20px 20px 8px 20px;font-family:Arial,Helvetica,sans-serif;">
             <h1 style="margin:0;font-size:20px;line-height:26px;color:#0f172a;font-weight:700;">
@@ -24,6 +25,7 @@ export const orderEmailTemplate = `
           </td>
         </tr>
 
+        <!-- meta -->
         <tr>
           <td style="padding:0 20px 12px 20px;font-family:Arial,Helvetica,sans-serif;">
             <div style="font-size:13px;line-height:18px;color:#475569;">
@@ -36,42 +38,43 @@ export const orderEmailTemplate = `
           </td>
         </tr>
 
+        <!-- spacer line -->
         <tr>
           <td style="padding:0 20px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #e5e7eb;">
-              <tr><td style="height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="border-top:1px solid #e5e7eb;height:14px;line-height:14px;font-size:0;">&nbsp;</td></tr>
             </table>
           </td>
         </tr>
 
+        <!-- unified table: header + items -->
         <tr>
-          <td style="padding:0 20px;font-family:Arial,Helvetica,sans-serif;color:#334155;font-size:12px;font-weight:700;">
+          <td style="padding:0 20px;font-family:Arial,Helvetica,sans-serif;color:#334155;font-size:12px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+
+              <!-- header row -->
               <tr>
-                <td width="56" style="padding:0 12px 8px 0;">&nbsp;</td>
-                <td align="left" style="padding:0 12px 8px 0;">Product</td>
-                <td width="90" align="center" style="padding:0 12px 8px 0;">Type</td>
-                <td width="110" align="right" style="padding:0 12px 8px 0;">Price</td>
-                <td width="60"  align="center" style="padding:0 12px 8px 0;">Qty.</td>
-                <td width="140" align="right" style="padding:0 0 8px 0;">Total (with tax)</td>
+                <td width="56"  style="padding:0 12px 8px 0;font-weight:700;">&nbsp;</td>
+                <td             style="padding:0 12px 8px 0;font-weight:700;" align="left">Product</td>
+                <td width="90"  style="padding:0 12px 8px 0;font-weight:700;" align="center">Type</td>
+                <td width="110" style="padding:0 12px 8px 0;font-weight:700;" align="right">Price</td>
+                <td width="60"  style="padding:0 12px 8px 0;font-weight:700;" align="center">Qty.</td>
+                <td width="140" style="padding:0 0 8px 0;font-weight:700;"  align="right">Total (with tax)</td>
               </tr>
-            </table>
-          </td>
-        </tr>
 
-        {{#each items}}
-        <tr>
-          <td style="padding:12px 20px;font-family:Arial,Helvetica,sans-serif;border-top:1px solid #e5e7eb;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <!-- divider -->
+              <tr><td colspan="6" style="border-top:1px solid #e5e7eb;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
+
+              <!-- items -->
+              {{#each items}}
               <tr valign="top">
-                <td width="56" style="padding:0 12px 0 0;">
+                <td width="56" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;">
                   {{#if imageUrl}}
-                    <img src="{{imageUrl}}" alt="" width="56" height="56"
-                      style="display:block;border:0;outline:none;text-decoration:none;border-radius:6px;background:#f1f5f9;">
+                    <img src="{{imageUrl}}" alt="" width="56" height="56" style="display:block;border:0;outline:none;text-decoration:none;border-radius:6px;background:#f1f5f9;">
                   {{/if}}
                 </td>
 
-                <td align="left" style="padding:0 12px 0 0;">
+                <td style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;" align="left">
                   <div style="font-size:14px;line-height:18px;color:#0f172a;font-weight:600;margin:0 0 4px 0;">
                     {{#if productUrl}}
                       <a href="{{productUrl}}" target="_blank" style="color:#2563eb;text-decoration:none;">{{productName}}</a>
@@ -83,21 +86,21 @@ export const orderEmailTemplate = `
                   {{#if warehouse}}<div style="font-size:12px;line-height:16px;color:#64748b;margin:0;">{{warehouse}}</div>{{/if}}
                 </td>
 
-                <td width="90" align="center" style="padding:0 12px 0 0;">
+                <td width="90" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;" align="center">
                   <span style="display:inline-block;padding:2px 8px;border:1px solid #cbd5e1;border-radius:12px;font-size:12px;color:#0f172a;background:#f8fafc;">
                     {{#if isPreorder}}Pre-order{{else}}Order{{/if}}
                   </span>
                 </td>
 
-                <td width="110" align="right" style="padding:0 12px 0 0;white-space:nowrap;font-size:14px;color:#0f172a;">
+                <td width="110" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;white-space:nowrap;font-size:14px;color:#0f172a;" align="right">
                   {{price}} {{../currency}}
                 </td>
 
-                <td width="60" align="center" style="padding:0 12px 0 0;font-size:14px;color:#0f172a;">
+                <td width="60" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;font-size:14px;color:#0f172a;" align="center">
                   {{qty}}
                 </td>
 
-                <td width="140" align="right" style="padding:0;white-space:nowrap;">
+                <td width="140" style="padding:12px 0 0 0;border-top:1px solid #e5e7eb;white-space:nowrap;" align="right">
                   <div style="font-size:14px;color:#0f172a;">{{totalWithTax}} {{../currency}}</div>
                   {{#if preorderCharge}}
                   <div style="font-size:12px;color:#64748b;margin-top:4px;">
@@ -107,42 +110,46 @@ export const orderEmailTemplate = `
                   {{/if}}
                 </td>
               </tr>
-            </table>
-          </td>
-        </tr>
-        {{/each}}
+              {{/each}}
 
-        {{#if totals}}
-        <tr>
-          <td style="padding:12px 20px 0 20px;font-family:Arial,Helvetica,sans-serif;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #e5e7eb;">
-              <tr><td style="height:12px;line-height:12px;font-size:0;">&nbsp;</td></tr>
+              <!-- totals (aligned to last column) -->
+              {{#if totals}}
+              <tr><td colspan="6" style="border-top:1px solid #e5e7eb;height:12px;line-height:12px;font-size:0;">&nbsp;</td></tr>
+
               {{#if totals.subtotal}}
               <tr>
-                <td align="right" style="font-size:13px;color:#334155;padding:2px 0;">Subtotal:</td>
-                <td align="right" width="160" style="font-size:13px;color:#0f172a;padding:2px 0;white-space:nowrap;">{{totals.subtotal}} {{currency}}</td>
-              </tr>{{/if}}
+                <td colspan="5" style="padding:2px 12px 0 0;font-size:13px;color:#334155;" align="right">Subtotal:</td>
+                <td width="140" style="padding:2px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.subtotal}} {{currency}}</td>
+              </tr>
+              {{/if}}
+
               {{#if totals.tax}}
               <tr>
-                <td align="right" style="font-size:13px;color:#334155;padding:2px 0;">Tax:</td>
-                <td align="right" width="160" style="font-size:13px;color:#0f172a;padding:2px 0;white-space:nowrap;">{{totals.tax}} {{currency}}</td>
-              </tr>{{/if}}
+                <td colspan="5" style="padding:2px 12px 0 0;font-size:13px;color:#334155;" align="right">Tax:</td>
+                <td width="140" style="padding:2px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.tax}} {{currency}}</td>
+              </tr>
+              {{/if}}
+
               {{#if totals.shipping}}
               <tr>
-                <td align="right" style="font-size:13px;color:#334155;padding:2px 0;">Shipping:</td>
-                <td align="right" width="160" style="font-size:13px;color:#0f172a;padding:2px 0;white-space:nowrap;">{{totals.shipping}} {{currency}}</td>
-              </tr>{{/if}}
+                <td colspan="5" style="padding:2px 12px 0 0;font-size:13px;color:#334155;" align="right">Shipping:</td>
+                <td width="140" style="padding:2px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.shipping}} {{currency}}</td>
+              </tr>
+              {{/if}}
+
               {{#if totals.grandTotal}}
               <tr>
-                <td align="right" style="font-size:13px;color:#0f172a;padding:6px 0;font-weight:700;">Total:</td>
-                <td align="right" width="160" style="font-size:13px;color:#0f172a;padding:6px 0;white-space:nowrap;font-weight:700;">{{totals.grandTotal}} {{currency}}</td>
-              </tr>{{/if}}
-              <tr><td style="height:12px;line-height:12px;font-size:0;">&nbsp;</td><td></td></tr>
+                <td colspan="5" style="padding:6px 12px 0 0;font-size:13px;color:#0f172a;font-weight:700;" align="right">Total:</td>
+                <td width="140" style="padding:6px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;font-weight:700;" align="right">{{totals.grandTotal}} {{currency}}</td>
+              </tr>
+              {{/if}}
+              {{/if}}
+
             </table>
           </td>
         </tr>
-        {{/if}}
 
+        <!-- thanks -->
         <tr>
           <td style="padding:8px 20px 20px 20px;font-family:Arial,Helvetica,sans-serif;">
             <div style="font-size:12px;color:#64748b;">Thank you for your order.</div>
