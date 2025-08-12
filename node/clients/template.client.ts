@@ -34,7 +34,7 @@ export default class TemplateClient extends JanusClient {
   public async createTemplate(templateName: string, emailTemplate: string) {
     return this.http.post(this.url, {
       Name: templateName,
-      FriendlyName: 'Whola Preorder Payment',
+      FriendlyName: `${templateName}FW`,
       Description: null,
       IsDefaultTemplate: false,
       AccountId: null,

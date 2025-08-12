@@ -11,9 +11,24 @@
   "policies": [
     {
       "name": "outbound-access",
-      "attrs": { "host": "{{account}}.vtexcommercestable.com.br", "path": "/api/*" }
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "portal.vtexcommercestable.com.br",
+        "path": "/api/*"
+      }
+    },
+    {
+      "name": "template-criar"
+    },
+    {
+      "name": "template-editar"
     }
-
   ],
   "settingsSchema": {
     "title": "Whola preorder-invoicing",
