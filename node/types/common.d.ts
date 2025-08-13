@@ -10,6 +10,13 @@ export type OrderLine = {
   totalWithTax: number // Total price including tax
   preorderCharge?: number // Optional: if present, show “Charged for pre-order: …”
 }
+export type OrderTotals = {
+  itemsTotal?: number
+  discounts?: number // "Discounts Total"
+  shipping?: number // "Shipping Total"
+  tax?: number // "Tax Total"
+  grandTotal?: number // "Grand total" (bold)
+}
 
 export type OrderEmailPayload = {
   orderNumber: string // Order identifier, e.g. "WHL-1551870522505-01"
@@ -21,11 +28,5 @@ export type OrderEmailPayload = {
   currency: string // Currency code, e.g. "AUD"
   currencySymbol?: string // Optional: symbol or currency label, e.g. "$" or "AUD"
   items: OrderLine[] // List of order line items
-  // Optional: global order totals
-  totals?: {
-    subtotal?: number // Subtotal amount (before tax/shipping)
-    tax?: number // Tax amount
-    shipping?: number // Shipping cost
-    grandTotal?: number // Final total amount
-  }
+  totals?: OrderTotals
 }

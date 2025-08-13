@@ -32,7 +32,7 @@ export default class NotificationClient extends ExternalClient {
     const {
       clients: { templatesApi, emailApi },
     } = context
-    const templateName = 'order-test-invoice-s2'
+    const templateName = 'order-invoice-v5'
 
     const exists = await templatesApi.getTemplate(
       templateName,

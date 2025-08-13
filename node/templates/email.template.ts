@@ -13,14 +13,14 @@ export const orderEmailTemplate = `
         <!-- preheader hidden -->
         <tr>
           <td style="font-size:0;line-height:0;opacity:0;height:0;overflow:hidden;display:none;">
-            Order {{orderNumber}} – {{status}}
+            {{orderNumber}} – {{status}}
           </td>
         </tr>
         <!-- title -->
         <tr>
           <td style="padding:20px 20px 8px 20px;font-family:Arial,Helvetica,sans-serif;">
             <h1 style="margin:0;font-size:20px;line-height:26px;color:#0f172a;font-weight:700;">
-              Order {{orderNumber}}
+              {{orderNumber}}
             </h1>
           </td>
         </tr>
@@ -116,35 +116,54 @@ export const orderEmailTemplate = `
               {{#if totals}}
               <tr><td colspan="6" style="border-top:1px solid #e5e7eb;height:12px;line-height:12px;font-size:0;">&nbsp;</td></tr>
 
-              {{#if totals.subtotal}}
+              {{!-- Items Total: prefer itemsTotal, altfel subtotal --}}
+              {{#if totals.itemsTotal}}
               <tr>
-                <td colspan="5" style="padding:2px 12px 0 0;font-size:13px;color:#334155;" align="right">Subtotal:</td>
-                <td width="140" style="padding:2px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.subtotal}} {{currency}}</td>
+                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Items Total</td>
+                <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.itemsTotal}} {{currency}}</td>
+              </tr>
+              {{/if}}
+              {{#unless totals.itemsTotal}}
+                {{#if totals.subtotal}}
+                <tr>
+                  <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Items Total</td>
+                  <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.subtotal}} {{currency}}</td>
+                </tr>
+                {{/if}}
+              {{/unless}}
+
+              {{!-- Discounts Total (opțional) --}}
+              {{#if totals.discounts}}
+              <tr>
+                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Discounts Total</td>
+                <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.discounts}} {{currency}}</td>
               </tr>
               {{/if}}
 
-              {{#if totals.tax}}
-              <tr>
-                <td colspan="5" style="padding:2px 12px 0 0;font-size:13px;color:#334155;" align="right">Tax:</td>
-                <td width="140" style="padding:2px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.tax}} {{currency}}</td>
-              </tr>
-              {{/if}}
-
+              {{!-- Shipping Total (opțional) --}}
               {{#if totals.shipping}}
               <tr>
-                <td colspan="5" style="padding:2px 12px 0 0;font-size:13px;color:#334155;" align="right">Shipping:</td>
-                <td width="140" style="padding:2px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.shipping}} {{currency}}</td>
+                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Shipping Total</td>
+                <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.shipping}} {{currency}}</td>
               </tr>
               {{/if}}
 
+              {{!-- Tax Total (opțional) --}}
+              {{#if totals.tax}}
+              <tr>
+                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Tax Total</td>
+                <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.tax}} {{currency}}</td>
+              </tr>
+              {{/if}}
+
+              {{!-- Grand total (bold) --}}
               {{#if totals.grandTotal}}
               <tr>
-                <td colspan="5" style="padding:6px 12px 0 0;font-size:13px;color:#0f172a;font-weight:700;" align="right">Total:</td>
-                <td width="140" style="padding:6px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;font-weight:700;" align="right">{{totals.grandTotal}} {{currency}}</td>
+                <td colspan="5" style="padding:8px 12px 0 0;font-size:13px;color:#0f172a;font-weight:700;" align="right">Grand total</td>
+                <td width="140" style="padding:8px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;font-weight:700;" align="right">{{totals.grandTotal}} {{currency}}</td>
               </tr>
               {{/if}}
               {{/if}}
-
             </table>
           </td>
         </tr>
