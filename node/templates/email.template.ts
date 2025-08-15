@@ -34,6 +34,7 @@ export const orderEmailTemplate = `
               <div><strong>Client:</strong> {{clientName}}</div>
               {{#if organization}}<div><strong>Organization:</strong> {{organization}}</div>{{/if}}
               {{#if phone}}<div><strong>Phone:</strong> {{phone}}</div>{{/if}}
+              <div><strong>Whola Pty Ltd:</strong> ABN 75 632 644 565 </div>
             </div>
           </td>
         </tr>
@@ -169,12 +170,15 @@ export const orderEmailTemplate = `
         </tr>
 
         <!-- thanks -->
-        <tr>
-          <td style="padding:8px 20px 20px 20px;font-family:Arial,Helvetica,sans-serif;">
-            <div style="font-size:12px;color:#64748b;">Thank you for your order.</div>
-          </td>
-        </tr>
-
+      <tr>
+      <td align="center"
+          style="padding:8px 20px 20px 20px;font-family:Arial,Helvetica,sans-serif;text-align:center;">
+        <div style="font-size:12px;color:#64748b;">Thank you for your order.</div>
+        <div style="font-size:12px;color:#64748b;margin-top:4px;">
+          Whola – Shop 2, 46 Hawker St, Brompton SA 5007, Australia.
+        </div>
+      </td>
+    </tr>
       </table>
     </td></tr>
   </table>
