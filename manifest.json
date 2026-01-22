@@ -1,7 +1,7 @@
 {
   "vendor": "whola",
   "name": "whola-preorders-mail-service",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "title": "Whola Mail Service",
   "description": "App which will send email (invoices) notifications about preorder payments",
   "builders": {
@@ -33,7 +33,16 @@
   "settingsSchema": {
     "title": "Whola preorder-invoicing",
     "type": "object",
-    "properties": {}
+    "properties": {
+      "omsAppKey": {
+        "title": "OMS App Key",
+        "type": "string"
+      },
+      "omsAppToken": {
+        "title": "OMS App Token",
+        "type": "string"
+      }
+    }
   },
   "credentialType": "absolute",
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"

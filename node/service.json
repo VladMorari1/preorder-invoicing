@@ -9,6 +9,10 @@
     "sendNotification": {
       "path": "/whola-preorders-mail-service/send-notification",
       "public": true
+    },
+    "getOrdersByOrderGroup": {
+      "path": "/whola-oms/orders/order-group/:orderGroup",
+      "public": true
     }
   }
 }

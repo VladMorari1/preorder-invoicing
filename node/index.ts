@@ -1,8 +1,10 @@
 import type { ClientsConfig } from '@vtex/api'
 import { LRUCache, Service, method } from '@vtex/api'
+
 import { Clients } from './clients'
 import { buildErrorHandler } from './middlewares/error.middleware'
-import {sendPaymentNotification} from "./services/notification/notification.handler";
+import { sendPaymentNotification } from './services/notification/notification.handler'
+import { getOrdersByOrderGroup } from './services/oms/oms.handler'
 
 const TIMEOUT_MS = 1000 * 10
 
@@ -30,6 +32,8 @@ export default new Service({
     sendNotification: method({
       POST: [buildErrorHandler(sendPaymentNotification)],
     }),
-
+    getOrdersByOrderGroup: method({
+      GET: [buildErrorHandler(getOrdersByOrderGroup)],
+    }),
   },
 })

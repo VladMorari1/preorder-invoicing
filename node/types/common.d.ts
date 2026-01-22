@@ -1,3 +1,6 @@
+import type { ServiceContext } from '@vtex/api'
+import type { Clients } from '../clients'
+
 export type OrderLine = {
   productName: string
   productUrl?: string // Optional: product page link
@@ -8,6 +11,7 @@ export type OrderLine = {
   price: number // Unit price (decide if tax included or excluded)
   qty: number // Quantity ordered
   totalWithTax: number // Total price including tax
+  totalPrice: number // Total price
   preorderCharge?: number // Optional: if present, show “Charged for pre-order: …”
 }
 export type OrderTotals = {
@@ -16,6 +20,13 @@ export type OrderTotals = {
   shipping?: number // "Shipping Total"
   tax?: number // "Tax Total"
   grandTotal?: number // "Grand total" (bold)
+}
+export interface CouponDiscount {
+  orderId: string
+  couponType: string
+  promotionName: string
+  coupon: string
+  discountAmount: number
 }
 
 export type OrderEmailPayload = {
@@ -29,4 +40,7 @@ export type OrderEmailPayload = {
   currencySymbol?: string // Optional: symbol or currency label, e.g. "$" or "AUD"
   items: OrderLine[] // List of order line items
   totals?: OrderTotals
+  couponByOrderId?: CouponDiscount
 }
+
+export type VTEXContext = ServiceContext<Clients>

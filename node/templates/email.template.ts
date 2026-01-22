@@ -16,6 +16,16 @@ export const orderEmailTemplate = `
             {{orderNumber}} – {{status}}
           </td>
         </tr>
+        <tr>
+          <td align="center" style="padding:20px 20px 8px 20px;">
+            <img
+              src="https://whola.vtexassets.com/assets/vtex.catalog-images/products/wholalogoimg___efbfb2ca88ef70d5dfb5e53d9606fe5f.png"
+              alt="Whola"
+              width="140"
+              style="display:block;margin:0 auto;border:0;outline:none;text-decoration:none;height:auto;"
+            >
+          </td>
+        </tr>
         <!-- title -->
         <tr>
           <td style="padding:20px 20px 8px 20px;font-family:Arial,Helvetica,sans-serif;">
@@ -60,7 +70,7 @@ export const orderEmailTemplate = `
                 <td width="90"  style="padding:0 12px 8px 0;font-weight:700;" align="center">Type</td>
                 <td width="110" style="padding:0 12px 8px 0;font-weight:700;" align="right">Price</td>
                 <td width="60"  style="padding:0 12px 8px 0;font-weight:700;" align="center">Qty.</td>
-                <td width="140" style="padding:0 0 8px 0;font-weight:700;"  align="right">Total (with tax)</td>
+                <td width="140" style="padding:0 0 8px 0;font-weight:700;"  align="right">Total excl. GST</td>
               </tr>
 
               <!-- divider -->
@@ -102,7 +112,7 @@ export const orderEmailTemplate = `
                 </td>
 
                 <td width="140" style="padding:12px 0 0 0;border-top:1px solid #e5e7eb;white-space:nowrap;" align="right">
-                  <div style="font-size:14px;color:#0f172a;">{{totalWithTax}} {{../currency}}</div>
+                  <div style="font-size:14px;color:#0f172a;">{{totalPrice}} {{../currency}}</div>
                   {{#if preorderCharge}}
                   <div style="font-size:12px;color:#64748b;margin-top:4px;">
                     Charged for pre-order:
@@ -117,17 +127,16 @@ export const orderEmailTemplate = `
               {{#if totals}}
               <tr><td colspan="6" style="border-top:1px solid #e5e7eb;height:12px;line-height:12px;font-size:0;">&nbsp;</td></tr>
 
-              {{!-- Items Total: prefer itemsTotal, altfel subtotal --}}
               {{#if totals.itemsTotal}}
               <tr>
-                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Items Total</td>
+                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Subtotal</td>
                 <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.itemsTotal}} {{currency}}</td>
               </tr>
               {{/if}}
               {{#unless totals.itemsTotal}}
                 {{#if totals.subtotal}}
                 <tr>
-                  <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Items Total</td>
+                  <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Subtotal</td>
                   <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.subtotal}} {{currency}}</td>
                 </tr>
                 {{/if}}
