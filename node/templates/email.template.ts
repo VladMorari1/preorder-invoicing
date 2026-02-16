@@ -70,11 +70,12 @@ export const orderEmailTemplate = `
                 <td width="90"  style="padding:0 12px 8px 0;font-weight:700;" align="center">Type</td>
                 <td width="110" style="padding:0 12px 8px 0;font-weight:700;" align="right">Price</td>
                 <td width="60"  style="padding:0 12px 8px 0;font-weight:700;" align="center">Qty.</td>
+                <td width="110" style="padding:0 12px 8px 0;font-weight:700;" align="right">Discount</td>
                 <td width="140" style="padding:0 0 8px 0;font-weight:700;"  align="right">Total excl. GST</td>
               </tr>
 
               <!-- divider -->
-              <tr><td colspan="6" style="border-top:1px solid #e5e7eb;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
+              <tr><td colspan="7" style="border-top:1px solid #e5e7eb;height:0;line-height:0;font-size:0;">&nbsp;</td></tr>
 
               <!-- items -->
               {{#each items}}
@@ -110,6 +111,16 @@ export const orderEmailTemplate = `
                 <td width="60" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;font-size:14px;color:#0f172a;" align="center">
                   {{qty}}
                 </td>
+                <td width="110" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;white-space:nowrap;font-size:14px;color:#0f172a;" align="right">
+                  {{#if discount}}
+                    -{{discount.amount}} {{../currency}}
+                    {{#if discount.name}}
+                      <div style="font-size:12px;color:#64748b;margin-top:4px;">{{discount.name}}</div>
+                    {{/if}}
+                  {{else}}
+                    &nbsp;
+                  {{/if}}
+                </td>
 
                 <td width="140" style="padding:12px 0 0 0;border-top:1px solid #e5e7eb;white-space:nowrap;" align="right">
                   <div style="font-size:14px;color:#0f172a;">{{totalPrice}} {{../currency}}</div>
@@ -125,27 +136,37 @@ export const orderEmailTemplate = `
 
               <!-- totals (aligned to last column) -->
               {{#if totals}}
-              <tr><td colspan="6" style="border-top:1px solid #e5e7eb;height:12px;line-height:12px;font-size:0;">&nbsp;</td></tr>
+              <tr><td colspan="7" style="border-top:1px solid #e5e7eb;height:12px;line-height:12px;font-size:0;">&nbsp;</td></tr>
 
               {{#if totals.itemsTotal}}
               <tr>
-                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Subtotal</td>
+                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Subtotal</td>
                 <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.itemsTotal}} {{currency}}</td>
               </tr>
               {{/if}}
               {{#unless totals.itemsTotal}}
                 {{#if totals.subtotal}}
                 <tr>
-                  <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Subtotal</td>
+                  <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Subtotal</td>
                   <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.subtotal}} {{currency}}</td>
                 </tr>
                 {{/if}}
               {{/unless}}
 
-              {{!-- Discounts Total (opțional) --}}
+              {{#if couponByOrderId}}
+              <tr>
+                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">
+                  Discount{{#if couponByOrderId.promotionName}} ({{couponByOrderId.promotionName}}){{/if}}
+                </td>
+                <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">
+                  -{{couponByOrderId.discountAmountFormatted}} {{currency}}
+                </td>
+              </tr>
+              {{/if}}
+
               {{#if totals.discounts}}
               <tr>
-                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Discounts Total</td>
+                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Discounts Total</td>
                 <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.discounts}} {{currency}}</td>
               </tr>
               {{/if}}
@@ -153,7 +174,7 @@ export const orderEmailTemplate = `
               {{!-- Shipping Total (opțional) --}}
               {{#if totals.shipping}}
               <tr>
-                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Shipping Total</td>
+                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Shipping Total</td>
                 <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.shipping}} {{currency}}</td>
               </tr>
               {{/if}}
@@ -161,7 +182,7 @@ export const orderEmailTemplate = `
               {{!-- Tax Total (opțional) --}}
               {{#if totals.tax}}
               <tr>
-                <td colspan="5" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Tax Total</td>
+                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Tax Total</td>
                 <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.tax}} {{currency}}</td>
               </tr>
               {{/if}}
@@ -169,7 +190,7 @@ export const orderEmailTemplate = `
               {{!-- Grand total (bold) --}}
               {{#if totals.grandTotal}}
               <tr>
-                <td colspan="5" style="padding:8px 12px 0 0;font-size:13px;color:#0f172a;font-weight:700;" align="right">Grand total</td>
+                <td colspan="6" style="padding:8px 12px 0 0;font-size:13px;color:#0f172a;font-weight:700;" align="right">Grand total</td>
                 <td width="140" style="padding:8px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;font-weight:700;" align="right">{{totals.grandTotal}} {{currency}}</td>
               </tr>
               {{/if}}
@@ -179,15 +200,15 @@ export const orderEmailTemplate = `
         </tr>
 
         <!-- thanks -->
-      <tr>
-      <td align="center"
-          style="padding:8px 20px 20px 20px;font-family:Arial,Helvetica,sans-serif;text-align:center;">
-        <div style="font-size:12px;color:#64748b;">Thank you for your order.</div>
-        <div style="font-size:12px;color:#64748b;margin-top:4px;">
-          Whola – Shop 2, 46 Hawker St, Brompton SA 5007, Australia.
-        </div>
-      </td>
-    </tr>
+        <tr>
+          <td align="center"
+              style="padding:8px 20px 20px 20px;font-family:Arial,Helvetica,sans-serif;text-align:center;">
+            <div style="font-size:12px;color:#64748b;">Thank you for your order.</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px;">
+              Whola – Shop 2, 46 Hawker St, Brompton SA 5007, Australia.
+            </div>
+          </td>
+        </tr>
       </table>
     </td></tr>
   </table>

@@ -13,6 +13,10 @@ export type OrderLine = {
   totalWithTax: number // Total price including tax
   totalPrice: number // Total price
   preorderCharge?: number // Optional: if present, show “Charged for pre-order: …”
+  discount?: {
+    name: string
+    amount: number // IMPORTANT: in dollars (already /100), same as you pass to template
+  }
 }
 export type OrderTotals = {
   itemsTotal?: number
