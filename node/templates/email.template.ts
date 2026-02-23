@@ -111,12 +111,15 @@ export const orderEmailTemplate = `
                 <td width="60" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;font-size:14px;color:#0f172a;" align="center">
                   {{qty}}
                 </td>
-                <td width="110" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;white-space:nowrap;font-size:14px;color:#0f172a;" align="right">
+
+                <td width="110" style="padding:12px 12px 0 0;border-top:1px solid #e5e7eb;font-size:13px;color:#0f172a;" align="right">
                   {{#if discount}}
-                    -{{discount.amount}} {{../currency}}
-                    {{#if discount.name}}
-                      <div style="font-size:12px;color:#64748b;margin-top:4px;">{{discount.name}}</div>
-                    {{/if}}
+                    <div style="white-space:normal;line-height:16px;">
+                      {{#if discount.name}}
+                        <span style="color:#0f172a;">{{discount.name}}</span>
+                      {{/if}}
+                      <span style="color:#0f172a;white-space:nowrap;">-{{discount.amount}} {{../currency}}</span>
+                    </div>
                   {{else}}
                     &nbsp;
                   {{/if}}
@@ -155,20 +158,20 @@ export const orderEmailTemplate = `
 
               {{#if couponByOrderId}}
               <tr>
-                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">
-                  Discount{{#if couponByOrderId.promotionName}} ({{couponByOrderId.promotionName}}){{/if}}
-                </td>
+                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Discount</td>
                 <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">
                   -{{couponByOrderId.discountAmountFormatted}} {{currency}}
                 </td>
               </tr>
-              {{/if}}
-
-              {{#if totals.discounts}}
-              <tr>
-                <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Discounts Total</td>
-                <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">{{totals.discounts}} {{currency}}</td>
-              </tr>
+              {{else}}
+                {{#if totals.discounts}}
+                <tr>
+                  <td colspan="6" style="padding:4px 12px 0 0;font-size:13px;color:#475569;" align="right">Discount</td>
+                  <td width="140" style="padding:4px 0 0 0;font-size:13px;color:#0f172a;white-space:nowrap;" align="right">
+                    -{{totals.discounts}} {{currency}}
+                  </td>
+                </tr>
+                {{/if}}
               {{/if}}
 
               {{!-- Shipping Total (opțional) --}}
